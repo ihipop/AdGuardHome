@@ -9,7 +9,6 @@ require (
 	github.com/NYTimes/gziphandler v1.1.1
 	github.com/ameshkov/dnscrypt/v2 v2.2.7
 	github.com/digineo/go-ipset/v2 v2.2.1
-	github.com/dimfeld/httptreemux/v5 v5.5.0
 	github.com/fsnotify/fsnotify v1.6.0
 	github.com/go-ping/ping v1.1.0
 	github.com/google/go-cmp v0.5.9
@@ -64,3 +63,5 @@ require (
 	golang.org/x/text v0.9.0 // indirect
 	golang.org/x/tools v0.8.0 // indirect
 )
+
+replace github.com/AdguardTeam/dnsproxy => github.com/ihipop/dnsproxy v0.48.4-0.20230505112130-b14fdb5a2be2

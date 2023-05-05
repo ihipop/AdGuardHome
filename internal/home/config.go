@@ -201,6 +201,9 @@ type dnsConfig struct {
 	// TODO(a.garipov): Add to the UI when HTTP/3 support is no longer
 	// experimental.
 	UseHTTP3Upstreams bool `yaml:"use_http3_upstreams"`
+
+	// Used by udp on unix alike systems.
+	ReuseAddr bool `yaml:"reuse_addr"`
 }
 
 type tlsConfigSettings struct {

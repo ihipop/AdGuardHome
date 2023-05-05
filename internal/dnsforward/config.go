@@ -315,6 +315,9 @@ type ServerConfig struct {
 	// UseHTTP3Upstreams defines if HTTP/3 is be allowed for DNS-over-HTTPS
 	// upstreams.
 	UseHTTP3Upstreams bool
+
+	// ReuseAddr defines SO_REUSEADDR used by udp server on unix alike systems.
+	ReuseAddr bool
 }
 
 // if any of ServerConfig values are zero, then default values from below are used
@@ -345,6 +348,7 @@ func (s *Server) createProxyConfig() (conf proxy.Config, err error) {
 		MaxGoroutines:          int(srvConf.MaxGoroutines),
 		UseDNS64:               srvConf.UseDNS64,
 		DNS64Prefs:             srvConf.DNS64Prefixes,
+		ReuseAddr:              srvConf.ReuseAddr,
 	}
 
 	if srvConf.EDNSClientSubnet.UseCustom {

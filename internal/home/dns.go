@@ -8,6 +8,9 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"runtime"
+	"strconv"
+	"strings"
 
 	"github.com/AdguardTeam/AdGuardHome/internal/aghalg"
 	"github.com/AdguardTeam/AdGuardHome/internal/aghhttp"
@@ -305,6 +308,16 @@ func generateServerConfig(
 	newConf.UsePrivateRDNS = dnsConf.UsePrivateRDNS
 	newConf.ServeHTTP3 = dnsConf.ServeHTTP3
 	newConf.UseHTTP3Upstreams = dnsConf.UseHTTP3Upstreams
+
+	if runtime.GOOS == "linux" || runtime.GOOS == "darwin" || strings.HasSuffix(runtime.GOOS, "bsd") {
+		if b, _ := strconv.ParseBool(os.Getenv("DNS_REUSE_ADDR")); b {
+			log.Info("environment DNS_REUSE_ADDR is set, using it")
+			dnsConf.ReuseAddr = true
+		}
+		newConf.ReuseAddr = dnsConf.ReuseAddr
+	} else {
+		newConf.ReuseAddr = false
+	}
 
 	return newConf, nil
 }
